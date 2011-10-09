@@ -1,0 +1,24 @@
+;;; Problem: What is the 10001st prime number?
+;;; (time (prime 10001))
+
+(defun is-prime (x)
+    (if (< x 3)
+        (eql x 2)
+      (if (eql 0 (mod x 2))
+	  nil
+	  (let ((count 2)
+		(isp t))
+	    (loop (when (> count (sqrt x)) (return isp))
+		  (if (eql 0 (mod x count))
+		      (setq isp nil))
+		  (incf count))))))
+
+(defun prime (num)
+  (let ((cnt 0)
+	(prime 2))
+    (loop until (eql cnt num) do
+	  (if (is-prime prime)
+	      (incf cnt))
+	  (incf prime))
+    (decf prime)
+    prime))

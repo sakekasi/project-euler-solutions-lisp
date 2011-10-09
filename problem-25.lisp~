@@ -1,0 +1,6 @@
+(defun num-digits (number)
+  (let ((digits 0)
+        (wnum number))
+    (loop while (> wnum 0) do
+         (incf digits)
+         (setf wnum (truncate wnum 10)))))

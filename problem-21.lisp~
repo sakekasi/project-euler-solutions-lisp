@@ -1,0 +1,32 @@
+(defun proper-divisors (num)
+  (let ((flsq (floor (sqrt num)))
+	(sq (sqrt num))
+	(divisors (make-array 0 :fill-pointer t :adjustable t)))
+    (loop for i from 2 to flsq do
+	 (if (zerop (mod num i))
+	     (progn
+	       (vector-push-extend i divisors)
+	       (if (not (equal sq i))
+		   (vector-push-extend (/ num i) divisors)))))
+    (vector-push-extend 1 divisors)
+    (sort divisors #'>)))
+
+(defun sum (vec)
+  (let ((sum 0))
+    (loop for i across vec do
+	 (setf sum (+ sum i)))
+    sum))
+
+(defun amicablep (x y)
+  (let ((divx (sum (proper-divisors x)))
+	(divy (sum (proper-divisors y))))
+    (and (= divy x) (= divx y))))
+
+(defun amicable-sum ()
+  (let ((sum 0))
+    (loop for a from 1 to 10000 do
+	 (print a)
+	 (loop for b from (+ a 1) to 10000 do
+	      (if (amicablep a b)
+		  (setf sum (+ sum a b)))))
+    sum))

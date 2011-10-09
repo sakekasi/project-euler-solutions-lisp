@@ -1,0 +1,30 @@
+;;; Problem: What is the value of the first triangle number to have over
+;;;          five hundred divisors?
+;;; (time (triangle-five-hundred))
+
+(defun divisors (num)
+  (let ((flsq (floor (sqrt num)))
+	(sq (sqrt num))
+	(divisors (make-array 0 :fill-pointer t :adjustable t)))
+    (loop for i from 1 to flsq do
+	 (if (zerop (mod num i))
+	     (progn
+	       (vector-push-extend i divisors)
+	       (if (not (equal sq i))
+		   (vector-push-extend (/ num i) divisors)))))
+    divisors))
+    
+	      
+
+(defun num-divisors (num)
+  (length (divisors num)))
+
+(defun triangle-five-hundred ()
+  (let ((tnum 1)
+	(current 2)
+	(ndivisors 1))
+    (loop while (<= ndivisors 500) do
+	 (setf tnum (+ tnum current))
+	 (setf ndivisors (num-divisors tnum))
+	 (incf current))
+    tnum))

@@ -1,0 +1,7 @@
+(defstruct (point (:conc-name pt-)
+                  (:print-function print-point))
+  (x 0)
+  (y 0))
+
+(defun print-point (p stream depth)
+  (format stream "(~A, ~A)" (pt-x p) (pt-y p)))
