@@ -1,9 +1,0 @@
-(defstruct fraction
-  (num 0)
-  (den 1))
-
-(defun gcd (m n)
-  (let ((r (mod m n)))
-    (if (zerop r)
-        n
-        (gcd n r))))

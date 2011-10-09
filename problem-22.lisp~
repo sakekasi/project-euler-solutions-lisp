@@ -1,4 +1,0 @@
-(defun letter-number (letter)
-  (if (upper-case-p letter)
-      (+ (- (char-code letter) (char-code #\A)) 1)
-      (+ (- (char-code letter) (char-code #\a)) 1)))
